@@ -292,7 +292,7 @@ def calculate_results(y_true, y_pred):
 
 # function for checking the random image and the corresponding augmented one
 
-def augmented_image_random(train_dir = train_dir, augmentation_model = data_augmentation ):
+def augmented_image_random(train_dir,augmentation_model):
 
   classes = os.listdir(train_dir)
   num_classes = len(classes)
