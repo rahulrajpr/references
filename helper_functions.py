@@ -293,6 +293,7 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import os
 import random
+import numpy as np
 
 def augmented_image_random(train_dir,augmentation_model):
 
