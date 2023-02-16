@@ -2,6 +2,8 @@
 ### Storing them here so they're easily accessible.
 
 import tensorflow as tf
+import os
+import random
 
 # Create a function to import an image and resize it to be able to be used with our model
 def load_and_prep_image(filename, img_shape=224, scale=True):
@@ -286,3 +288,39 @@ def calculate_results(y_true, y_pred):
                   "recall": model_recall,
                   "f1": model_f1}
   return model_results
+
+# function for checking the random image and the corresponding augmented one
+
+def augmented_image_random(train_dir = train_dir, augmentation_model = data_augmentation ):
+
+  classes = os.listdir(train_dir)
+  num_classes = len(classes)
+  random_class_id = random.choice(range(0,num_classes))
+  random_class = classes[random_class_id]
+
+  random_class_path = train_dir+'/'+random_class
+  images = os.listdir(random_class_path)
+  num_images = len(images)
+  random_image_id = random.choice(range(0,num_images))
+  random_image = images[random_image_id]
+
+  random_image_path = random_class_path+'/'+random_image
+
+  plt.figure(figsize = (14,5))
+  plt.subplot(1,2,1)
+  image_value = mpimg.imread(random_image_path)
+  plt.imshow(image_value)
+  plt.axis(False)
+  plt.title('normal image')
+
+  plt.subplot(1,2,2)
+
+  if np.max(image_value) > 1:
+    image_value = image_value/255
+  else:
+    image_value = image_value
+
+  image_augmented = augmentation_model(image_value)
+  plt.imshow(image_augmented)
+  plt.title('augmented image')
+  plt.axis(False)
