@@ -2,9 +2,6 @@
 ### Storing them here so they're easily accessible.
 
 import tensorflow as tf
-import os
-import random
-import matplotlib.image as mpimg
 
 # Create a function to import an image and resize it to be able to be used with our model
 def load_and_prep_image(filename, img_shape=224, scale=True):
@@ -291,6 +288,11 @@ def calculate_results(y_true, y_pred):
   return model_results
 
 # function for checking the random image and the corresponding augmented one
+
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import os
+import random
 
 def augmented_image_random(train_dir,augmentation_model):
 
