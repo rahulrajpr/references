@@ -296,7 +296,7 @@ import random
 import numpy as np
 import tensorflow as tf
 
-def image_augmented_view(train_dir,augmentation_model,img_size = (224,224), color_channel = 3):
+def image_augmented_view_random(train_dir,augmentation_model,img_size = (224,224), color_channel = 3):
 
   classes = os.listdir(train_dir)
   num_classes = len(classes)
@@ -310,6 +310,8 @@ def image_augmented_view(train_dir,augmentation_model,img_size = (224,224), colo
   random_image = images[random_image_id]
 
   random_image_path = random_class_path+'/'+random_image
+  
+  print('picks image randomly from random classes of the train directory')
 
   plt.figure(figsize = (14,5))
   plt.subplot(1,2,1)
