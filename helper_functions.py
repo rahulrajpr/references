@@ -294,8 +294,9 @@ import matplotlib.image as mpimg
 import os
 import random
 import numpy as np
+import tensorflow as tf
 
-def augmented_image_random(train_dir,augmentation_model):
+def image_augmented_view(train_dir,augmentation_model,img_size = (224,224), color_channel = 3):
 
   classes = os.listdir(train_dir)
   num_classes = len(classes)
@@ -315,7 +316,8 @@ def augmented_image_random(train_dir,augmentation_model):
   image_value = mpimg.imread(random_image_path)
   plt.imshow(image_value)
   plt.axis(False)
-  plt.title('normal image')
+  image_shape = image_value.shape
+  plt.title('normal image'+str(image_shape))
 
   plt.subplot(1,2,2)
 
@@ -324,7 +326,12 @@ def augmented_image_random(train_dir,augmentation_model):
   else:
     image_value = image_value
 
-  image_augmented = augmentation_model(image_value)
+  tensor_resized = tf.image.resize(image_value,size = img_size)
+  tensor_reshaped = tf.expand_dims(tensor_resized, axis = 0)
+  tensor_augmented = augmentation_model(tensor_reshaped)
+  
+  image_augmented = tf.squeeze(tensor_augmented)
   plt.imshow(image_augmented)
-  plt.title('augmented image')
+  image_augmented_shape = image_augmented.shape
+  plt.title('augmented image'+str(image_augmented_shape))
   plt.axis(False)
