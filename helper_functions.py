@@ -296,7 +296,9 @@ import random
 import numpy as np
 import tensorflow as tf
 
-def image_augmented_view_random(train_dir,augmentation_model,img_size = (224,224), color_channel = 3):
+def augmented_image_random_view(train_dir,augmentation_model,img_size = (224,224), color_channel = 3):
+  
+  """display the random image and its augmented version returns from another augemtation model"""
 
   classes = os.listdir(train_dir)
   num_classes = len(classes)
