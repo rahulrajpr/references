@@ -369,7 +369,9 @@ def plot_time_series(timesteps, values, title = None, label = None, figsize = No
       plt.title('\n'+title+'\n', c = 'r', fontsize = fontsize)
     plt.ylabel('\nvalue\n',fontsize = fontsize, c = 'b')
     plt.xlabel('\ntime\n',fontsize = fontsize, c = 'b')
-    plt.legend(fontsize = fontsize);
+    if label != None:
+      plt.legend(fontsize=fontsize)
+    plt.grid(True);
   else:
     plt.figure(figsize = figsize)
     plt.plot(timesteps, values, label = label)
@@ -377,5 +379,6 @@ def plot_time_series(timesteps, values, title = None, label = None, figsize = No
       plt.title('\n'+title+'\n', c = 'r', fontsize = fontsize)
     plt.ylabel('\nvalue\n',fontsize = fontsize, c = 'b')
     plt.xlabel('\ntime\n',fontsize = fontsize, c = 'b')
-    plt.legend(fontsize = fontsize);
-    
+    if label != None:
+      plt.legend(fontsize=fontsize)
+    plt.grid(True);
