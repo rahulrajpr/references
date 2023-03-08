@@ -342,3 +342,38 @@ def augmented_image_random_view(train_dir,augmentation_model,img_size = (224,224
   image_augmented_shape = image_augmented.shape
   plt.title('augmented image'+str(image_augmented_shape))
   plt.axis(False)
+
+  
+def plot_time_series(timesteps, values, title = None, label = None, figsize = None, fontsize = 14):
+  
+  """
+  Objective 
+  ---------
+  Function to plot the timeseries data in a scatterplot
+  
+  Parameters 
+  ----------
+  Timesteps : The time varient in the dataset
+  values : values to be plotted against the time varient
+
+  Note 
+  ---------
+  if figsize is provided, keranal retuns a new figure, deafult None, which returns a plot into the existing figure
+
+  """
+
+  if figsize == None:
+    plt.plot(timesteps, values, label = label)
+    plt.title(title+'\n')
+    plt.ylabel('values')
+    plt.xlabel('time')
+    plt.legend(fontsize = 14)
+    plt.show();
+  else:
+    plt.figure(figsize = figsize)
+    plt.plot(timesteps, values, label = label)
+    plt.title('\n'+title+'\n', c = 'r', fontsize = fontsize)
+    plt.ylabel('\nvalue\n',fontsize = fontsize, c = 'b')
+    plt.xlabel('\ntime\n',fontsize = fontsize, c = 'b')
+    plt.legend(fontsize = fontsize)
+    plt.show();
