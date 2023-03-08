@@ -358,21 +358,24 @@ def plot_time_series(timesteps, values, title = None, label = None, figsize = No
 
   Note 
   ---------
-  if figsize is provided, keranal retuns a new figure, deafult None, which returns a plot into the existing figure
-
+  incase figsize or title values are provided, keranal retuns a new figure, 
+  deafult value is None, which does not return a new figure, but gets plotted into the existing figure if already existing
+  
   """
 
   if figsize == None:
     plt.plot(timesteps, values, label = label)
-    plt.title(title+'\n')
-    plt.ylabel('values')
-    plt.xlabel('time')
-    plt.legend(fontsize = 14)
+    if title == None:
+      plt.title('\n'+title+'\n', c = 'r', fontsize = fontsize)
+    plt.ylabel('\nvalue\n',fontsize = fontsize, c = 'b')
+    plt.xlabel('\ntime\n',fontsize = fontsize, c = 'b')
+    plt.legend(fontsize = fontsize)
     plt.show();
   else:
     plt.figure(figsize = figsize)
     plt.plot(timesteps, values, label = label)
-    plt.title('\n'+title+'\n', c = 'r', fontsize = fontsize)
+    if title == None:
+      plt.title('\n'+title+'\n', c = 'r', fontsize = fontsize)
     plt.ylabel('\nvalue\n',fontsize = fontsize, c = 'b')
     plt.xlabel('\ntime\n',fontsize = fontsize, c = 'b')
     plt.legend(fontsize = fontsize)
