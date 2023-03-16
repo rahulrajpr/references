@@ -322,6 +322,7 @@ def augmented_image_random_view(train_dir,augmentation_model,img_size = (224,224
   """display the random image and its augmented version returns from another augemtation model"""
 
   classes = os.listdir(train_dir)
+  classes = [x for x in classes if x.find('.') < 0]
   num_classes = len(classes)
   random_class_id = random.choice(range(0,num_classes))
   random_class = classes[random_class_id]
