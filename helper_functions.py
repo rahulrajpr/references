@@ -463,10 +463,10 @@ def create_model_checkpoint(model_name, checkpoint_dir = 'checkpoints', monitor 
   monitor : based on the what criteria, one epoch to be selected, default 'val_accuracy'
   """
     # Define the checkpoint path and callback
-    checkpoint_path = f"{checkpoint_dir}/{model_name}.h5"
-    checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
+  checkpoint_path = f"{checkpoint_dir}/{model_name}.h5"
+  checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
                                                              save_weights_only=False,
                                                              monitor = monitor,
                                                              save_best_only=True,
                                                              verbose=0)
-    return checkpoint_callback
+  return checkpoint_callback
