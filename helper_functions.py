@@ -232,20 +232,38 @@ def compare_historys(original_history, new_history, initial_epochs=5):
     plt.xlabel('epoch')
     plt.show()
   
-# Create function to unzip a zipfile into current working directory 
+# Create function to unzip a zipfile or untar a .tgz file into current working directory 
 # (since we're going to be downloading and unzipping a few files)
+
 import zipfile
+import tarfile
 
-def unzip_data(filename):
+def unzip_untar_data(filename):
   """
-  Unzips filename into the current working directory.
-
+  Unzips(.zip file) or untar(.tgz) file into the current working directory.
   Args:
-    filename (str): a filepath to a target zip folder to be unzipped.
+    filename (str): a filepath to a target zip folder to be unzipped or untared
   """
-  zip_ref = zipfile.ZipFile(filename, "r")
-  zip_ref.extractall()
-  zip_ref.close()
+  if filename.endswith('.zip'):
+    print('File extension : .zip')
+    print('File extracting.......')
+    zip_ref = zipfile.ZipFile(filename, "r")
+    zip_ref.extractall()
+    zip_ref.close()
+    print('Completed successfully')
+    
+  elif filename.endswith('.tgz'):
+    print('File extension : .tgz')
+    print('File extracting.......')
+    with tarfile.open(filename, "r:gz") as tar:
+        tar.extractall()
+    del tar
+    print('Completed successfully')
+
+  else:
+    print('Error : unpected file extension ---> extension not listed in [.zip,.tgz]')
+    print('\nHint : task cannot be completed, check the file and file extension')
+                       
 
 # Walk through an image classification directory and find out how many files (images)
 # are in each subdirectory.
