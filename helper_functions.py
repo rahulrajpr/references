@@ -490,8 +490,20 @@ def reduce_learning_rate_callback(monitor='val_accuracy',patience = 2,factor=0.1
   factor : The factor by which the learning_rate to be reduced, defualt = 0.1
   
   """
-    return tf.keras.callbacks.ReduceLROnPlateau(monitor = monitor,
+  return tf.keras.callbacks.ReduceLROnPlateau(monitor = monitor,
                                                 patience = patience,
                                                 factor = factor,
                                                 verbose=1,
                                                 min_lr=0 )
+
+import gc
+import tensorflow as tf
+def clear_memory_tensorflow_session():
+  """
+  Objetive 
+  --------
+  Function to clear redundant variables from RAM after traing a model
+  which make the more RAM available for the other models to contiue train on...
+  """
+  tf.keras.backend.clear_session()
+  gc.collect()
