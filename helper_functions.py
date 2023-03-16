@@ -445,3 +445,28 @@ def plot_random_image_from_dir(dir_name, num_classes = 2, num_samples = 4, figsi
       plt.axis(False)
       image_shape = image_value.shape
       plt.title(f'shape : {image_shape}');
+      
+      
+## Create Mode checkpoints
+import tensorflow as tf  
+def create_model_checkpoint(model_name, checkpoint_dir = 'checkpoints', monitor = 'val_accuracy'):
+  
+  """
+  Objective 
+  ---------
+  return the callback object in the .h5 format
+  
+  Parameters
+  ----------
+  model_name : Nam of the model being fit
+  checkpoint dir : Name of the checkpoint directory, default 'checkpoints'
+  monitor : based on the what criteria, one epoch to be selected, default 'val_accuracy'
+  """
+    # Define the checkpoint path and callback
+    checkpoint_path = f"{checkpoint_dir}/{model_name}.h5"
+    checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
+                                                             save_weights_only=False,
+                                                             monitor = monitor,
+                                                             save_best_only=True,
+                                                             verbose=0)
+    return checkpoint_callback
