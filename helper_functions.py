@@ -380,7 +380,6 @@ def plot_time_series(timesteps, values, title = None, label = None, figsize = No
   deafult value is None, which does not return a new figure, but gets plotted into the existing figure if already existing
   
   """
-
   if figsize == None:
     plt.plot(timesteps, values, label = label)
     if title != None:
@@ -400,3 +399,49 @@ def plot_time_series(timesteps, values, title = None, label = None, figsize = No
     if label != None:
       plt.legend(fontsize=fontsize)
     plt.grid(True);
+    
+import random
+import os
+import matplotlib.image as mpimg
+
+def plot_random_image_from_dir(dir_name, num_classes = 2, num_samples = 4, figsize = (15,5)):
+
+  """
+  Objetive 
+  ---------
+  function that return images from directory with specifiec number of random samples and random classes
+  
+  Parameters 
+  ----------
+  dir_name : name or path of the directory
+
+  num_classes : numeber of random classes to be displayed, default 2,
+  
+  num_samples : number of sample from each class to be diplayed, default 4, 
+  
+  figsize : overall figure size of the plot of 1 class, default (15,5)
+
+  """
+  classes = os.listdir(dir_name)
+  classes = [x for x in classes if x.find('.') < 0]
+  random_classes = random.sample(classes,num_classes )
+
+  for sel_class in random_classes:
+
+    sel_class_path = dir_name+'/'+sel_class
+    images = os.listdir(sel_class_path)
+    num_images = len(images)
+
+    random_images_ids = [random.choice(range(0, num_images)) for _ in range(0, num_samples)]
+    random_images = [images[x] for x in random_images_ids]
+    random_image_paths = [sel_class_path+'/'+(x) for x in random_images] 
+    
+    plt.figure(figsize = figsize)
+    plt.suptitle(f'\nclass name : '+sel_class)
+    for ind,img_path in enumerate(random_image_paths):
+      plt.subplot(1,num_samples,ind+1)
+      image_value = mpimg.imread(img_path)
+      plt.imshow(image_value)
+      plt.axis(False)
+      image_shape = image_value.shape
+      plt.title(f'shape : {image_shape}');
