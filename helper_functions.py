@@ -471,3 +471,27 @@ def create_model_checkpoint(model_name, checkpoint_dir = 'checkpoints', monitor 
                                                              save_best_only=True,
                                                              verbose=0)
   return checkpoint_callback
+
+
+
+import tensorflow as tf
+
+def reduce_learning_rate_callback(monitor='val_accuracy',patience = 2,factor=0.1):
+  
+  """
+  Objective 
+  ---------
+  Reduce the learning rate on the fly during traing if a given metric is not improving
+  
+  Parameters
+  ----------
+  monitor : The metric to be monitored , default = 'val_accuracy',
+  patience : Number epohs the system waits for the metric to improve, default = 2,
+  factor : The factor by which the learning_rate to be reduced, defualt = 0.1
+  
+  """
+    return tf.keras.callbacks.ReduceLROnPlateau(monitor = monitor,
+                                                patience = patience,
+                                                factor = factor,
+                                                verbose=1,
+                                                min_lr=0 )
