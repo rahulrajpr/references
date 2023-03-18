@@ -543,3 +543,34 @@ def split_directories(original_dir,output_dir,ratio = (.8,.2)):
                      group_prefix=None,
                      move=False
                    )
+    
+import shutil
+import os
+
+def remove_directory(dir_path):
+
+  """
+  Objective
+  -----------
+  Removes a directory/sub directory 
+
+  Parameters
+  ----------
+  dir_path : path of the directory to be removed
+  """
+
+  dir_path = '/path/to/directory'
+
+  # Delete the directory and its contents
+  try:
+      shutil.rmtree(remove_dir)
+      
+      print(f"Directory '{remove_dir}' deleted successfully.\n")
+      parent_dir = '/'.join(remove_dir.split('/')[:-1])
+      remaining_dirs = [x for x in os.listdir(parent_dir) if x.find('.') < 0]
+      remaining_dirs_count = len(remaining_dirs)
+      print(f'Numbers of directories remaing : {remaining_dirs_count}\n')
+      print(f'List remianing directoris\n{remaining_dirs}')
+
+  except OSError as e:
+      print(f"Error deleting directory '{remove_dir}': {e}")
