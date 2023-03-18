@@ -558,10 +558,6 @@ def remove_directory(dir_path):
   ----------
   dir_path : path of the directory to be removed
   """
-
-  dir_path = '/path/to/directory'
-
-  # Delete the directory and its contents
   try:
       shutil.rmtree(dir_path)
       
