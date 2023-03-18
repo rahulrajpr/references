@@ -259,9 +259,17 @@ def unzip_untar_data(filename):
         tar.extractall()
     del tar
     print('Completed successfully')
+    
+  elif filename.endswith('.tar.gz'):
+    print('File extension : .tar.gz')
+    print('File extracting.......')
+    with tarfile.open(filename, "r:gz") as tar:
+        tar.extractall()
+    del tar
+    print('Completed successfully')
 
   else:
-    print('Error : unpected file extension ---> extension not listed in [.zip,.tgz]')
+    print('Error : unpected file extension ---> extension not listed in [.zip,.tgz,.tar.gs]')
     print('\nHint : task cannot be completed, check the file and file extension')
                        
 
