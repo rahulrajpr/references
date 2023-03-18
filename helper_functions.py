@@ -563,7 +563,7 @@ def remove_directory(dir_path):
 
   # Delete the directory and its contents
   try:
-      shutil.rmtree(remove_dir)
+      shutil.rmtree(dir_path)
       
       print(f"Directory '{remove_dir}' deleted successfully.\n")
       parent_dir = '/'.join(remove_dir.split('/')[:-1])
