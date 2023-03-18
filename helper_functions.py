@@ -565,8 +565,8 @@ def remove_directory(dir_path):
   try:
       shutil.rmtree(dir_path)
       
-      print(f"Directory '{remove_dir}' deleted successfully.\n")
-      parent_dir = '/'.join(remove_dir.split('/')[:-1])
+      print(f"Directory '{dir_path}' deleted successfully.\n")
+      parent_dir = '/'.join(dir_path.split('/')[:-1])
       remaining_dirs = [x for x in os.listdir(parent_dir) if x.find('.') < 0]
       remaining_dirs_count = len(remaining_dirs)
       print(f'Numbers of directories remaing : {remaining_dirs_count}\n')
