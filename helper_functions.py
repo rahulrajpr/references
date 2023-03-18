@@ -573,4 +573,4 @@ def remove_directory(dir_path):
       print(f'List remianing directoris\n{remaining_dirs}')
 
   except OSError as e:
-      print(f"Error deleting directory '{remove_dir}': {e}")
+      print(f"Error deleting directory '{dir_path}': {e}")
