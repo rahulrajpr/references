@@ -565,8 +565,8 @@ def remove_directory(dir_path):
       parent_dir = '/'.join(dir_path.split('/')[:-1])
       remaining_dirs = [x for x in os.listdir(parent_dir) if x.find('.') < 0]
       remaining_dirs_count = len(remaining_dirs)
-      print(f'count list remianing sub directories in {parent_dir} : {remaining_dirs_count}\n')
-      print(f'list remianing sub directories in {parent_dir} is\n\n{remaining_dirs}')
+      print(f'count of remianing sub directories in {parent_dir} : {remaining_dirs_count}\n')
+      print(f'list of remianing sub directories in {parent_dir} is\n\n{remaining_dirs}')
 
   except OSError as e:
       print(f"Error deleting directory '{dir_path}': {e}")
