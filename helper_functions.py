@@ -458,7 +458,7 @@ def plot_random_image_from_dir(dir_name, num_classes = 2, num_samples = 4, figsi
       
 ## Create Mode checkpoints
 import tensorflow as tf  
-def create_model_checkpoint(model_name, checkpoint_dir = 'checkpoints', monitor = 'val_accuracy', save_as_h5 = True):
+def create_model_checkpoint(model_name, checkpoint_dir = 'checkpoints', monitor = 'val_accuracy', save_best_only = True,save_as_h5 = True):
   
   """
   Objective 
@@ -480,7 +480,7 @@ def create_model_checkpoint(model_name, checkpoint_dir = 'checkpoints', monitor 
   checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
                                                              save_weights_only=False,
                                                              monitor = monitor,
-                                                             save_best_only=True,
+                                                             save_best_only = save_best_only,
                                                              verbose=0)
   return checkpoint_callback
 
