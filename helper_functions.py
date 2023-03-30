@@ -579,7 +579,7 @@ import random
 import os
 import pandas as pd
       
-def read_text_file_classes(dir,classes = None, extension = '.txt', seed = 42):
+def read_text_file_classes(dir,classes = None, extension = '.txt', shuffle = True):
 
   """
   Function that reads a text file from directory and retuns a tuple contains lists of features and labels in order
@@ -588,7 +588,7 @@ def read_text_file_classes(dir,classes = None, extension = '.txt', seed = 42):
   dir : The directory path where the class directories are present
   classes : The list of required class names, default None -- > considers all sub directories in dir
   extension : the text file extension, default is .txt
-  seed : random state at which the shuffle takes place, default 42
+  shuffle : boolean , shuffle at a random state of 42, default True
 
   """
   features, labels = [], []
@@ -610,7 +610,7 @@ def read_text_file_classes(dir,classes = None, extension = '.txt', seed = 42):
               features.append(feature)
               labels.append(label)
   
-  if seed != None):  
+  if shuffle:  
     zipped = list(zip(features, labels))  # zip the two lists together
     random.seed(seed) # keeping the seed for the reproducability of the code
     random.shuffle(zipped)  # shuffle the zipped list
