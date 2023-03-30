@@ -577,6 +577,7 @@ def remove_directory(dir_path):
       
 import random
 import os
+import pandas as pd
       
 def read_text_file_classes(dir,classes = None, extension = '.txt', seed = 42):
 
