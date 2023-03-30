@@ -609,11 +609,12 @@ def read_text_file_classes(dir,classes = None, extension = '.txt', seed = 42):
               features.append(feature)
               labels.append(label)
   
-  zipped = list(zip(features, labels))  # zip the two lists together
-  random.seed(seed) # keeping the seed for the reproducability of the code
-  random.shuffle(zipped)  # shuffle the zipped list
-  features, labels = zip(*zipped) # unzip the shuffled list into two separate lists
-  features, labels = list(features), list(labels) # convreting the tuple output to list
+  if not seed == None:  
+    zipped = list(zip(features, labels))  # zip the two lists together
+    random.seed(seed) # keeping the seed for the reproducability of the code
+    random.shuffle(zipped)  # shuffle the zipped list
+    features, labels = zip(*zipped) # unzip the shuffled list into two separate lists
+    features, labels = list(features), list(labels) # convreting the tuple output to list
 
   print(f'\nfeatures found : {len(features)}')
   print(f'lables found : {len(classes)}')
