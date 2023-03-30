@@ -574,3 +574,50 @@ def remove_directory(dir_path):
 
   except OSError as e:
       print(f"Error deleting directory '{dir_path}': {e}")
+      
+import random
+import os
+      
+def read_text_file_classes(dir,classes = None, extension = '.txt', seed = 42):
+
+  """
+  Function that reads a text file from directory and retuns a tuple contains lists of features and labels in order
+  --> The function shuffle the features and correspinding labels together @ at provided random state 
+
+  dir : The directory path where the class directories are present
+  classes : The list of required class names, default None -- > considers all sub directories in dir
+  extension : the text file extension, default is .txt
+  seed : random state at which the shuffle takes place, default 42
+
+  """
+  features, labels = [], []
+
+  classes = [x for x in os.listdir(dir) if x.find('.') < 0] if classes == None else classes
+  
+  for cls in classes:
+      cls_path = os.path.join(dir, cls)
+      label = cls
+      print(f'reading <{extension}> files in t: {cls_path}')
+
+      for filename in os.listdir(cls_path):
+          if not filename.endswith(extension):
+              continue
+          filepath = os.path.join(cls_path, filename)
+
+          with open(filepath, 'r') as f:
+              feature = f.read()
+              features.append(feature)
+              labels.append(label)
+  
+  zipped = list(zip(features, labels))  # zip the two lists together
+  random.seed(seed) # keeping the seed for the reproducability of the code
+  random.shuffle(zipped)  # shuffle the zipped list
+  features, labels = zip(*zipped) # unzip the shuffled list into two separate lists
+  features, labels = list(features), list(labels) # convreting the tuple output to list
+
+  print(f'\nfeatures found : {len(features)}')
+  print(f'lables found : {len(classes)}')
+  print(f'\nclasses : {pd.Series(labels).value_counts(normalize = True).index.values}')
+  print(f'balance : {pd.Series(labels).value_counts(normalize = True).values}')
+
+  return features,labels
