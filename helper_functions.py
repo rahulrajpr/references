@@ -610,7 +610,7 @@ def read_text_file_classes(dir,classes = None, extension = '.txt', seed = 42):
               features.append(feature)
               labels.append(label)
   
-  if not seed == None:  
+  if seed != None):  
     zipped = list(zip(features, labels))  # zip the two lists together
     random.seed(seed) # keeping the seed for the reproducability of the code
     random.shuffle(zipped)  # shuffle the zipped list
