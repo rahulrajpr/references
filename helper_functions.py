@@ -623,3 +623,40 @@ def read_text_file_classes(dir,classes = None, extension = '.txt', shuffle = Tru
   print(f'balance : {pd.Series(labels).value_counts(normalize = True).values}')
 
   return features,labels
+
+
+import string
+import tensorflow as tf
+
+def text_standardization(text, to_lower=True, rm_punctuations=True, rm_html=True, rm_newline=True):
+
+  """
+  Objective
+  ---------
+  Function that takes the raw text process and return the standardized text for natural language processing task
+
+  Note : It is fuction need to map into each elements of an iterative object
+
+  example --> train_sentences = [text_standardization(x) for x in train_sentences]
+
+  Parameters
+  ---------
+  text : text to standardize
+  to_lower : lower all the alphabets in the text
+  rm_punctuations : bool -- > remove the punctuations
+  rm_html : bool -- > remove the thml tages from the text
+  rm_newline : bool -- > remove the newline ('\n')
+
+  """
+  
+  if to_lower:
+    x = tf.strings.lower(text)  # convert all the text into lowercase
+  if rm_html:
+    x = tf.strings.regex_replace(x, '<[^>]*>', '')  # replace the html tags with nothing
+  if rm_punctuations:
+    x = tf.strings.regex_replace(x, '[' + string.punctuation + ']', '')  # replace the punctuations with nothing
+  if rm_newline:
+    x = tf.strings.regex_replace(x, '\n', '')  # remove the new line characters
+  x = x.numpy().decode('utf-8')  # convert into a numpy value and decode the text into utf-8 format
+    
+  return x
