@@ -371,7 +371,7 @@ def augmented_image_random_view(train_dir,augmentation_model,img_size = (224,224
   plt.axis(False)
 
   
-def plot_time_series(timesteps, values, title = None, label = None, figsize = None, fontsize = 14):
+def plot_time_series(timesteps, values, title = None, label = None, figsize = None, fontsize = 14, offset=0):
   
   """
   Objective 
@@ -390,7 +390,7 @@ def plot_time_series(timesteps, values, title = None, label = None, figsize = No
   
   """
   if figsize == None:
-    plt.plot(timesteps, values, label = label)
+    plt.plot(timesteps, values+offset, label = label)
     if title != None:
       plt.title('\n'+title+'\n', c = 'r', fontsize = fontsize)
     plt.ylabel('\nvalue\n',fontsize = fontsize, c = 'b')
@@ -400,7 +400,7 @@ def plot_time_series(timesteps, values, title = None, label = None, figsize = No
     plt.grid(True);
   else:
     plt.figure(figsize = figsize)
-    plt.plot(timesteps, values, label = label)
+    plt.plot(timesteps, values+offset, label = label)
     if title != None:
       plt.title('\n'+title+'\n', c = 'r', fontsize = fontsize)
     plt.ylabel('\nvalue\n',fontsize = fontsize, c = 'b')
@@ -408,6 +408,7 @@ def plot_time_series(timesteps, values, title = None, label = None, figsize = No
     if label != None:
       plt.legend(fontsize=fontsize)
     plt.grid(True);
+    
     
 import random
 import os
