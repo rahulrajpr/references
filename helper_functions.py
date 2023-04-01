@@ -389,8 +389,11 @@ def plot_time_series(timesteps, values, title = None, label = None, figsize = No
   deafult value is None, which does not return a new figure, but gets plotted into the existing figure if already existing
   
   """
+  x = pd.Series(timesteps).iloc[offset:]
+  y = pd.Series(values).iloc[offset:]
+  
   if figsize == None:
-    plt.plot(timesteps[offset:], values[offset:], label = label)
+    plt.plot(x,y, label = label)
     if title != None:
       plt.title('\n'+title+'\n', c = 'r', fontsize = fontsize)
     plt.ylabel('\nvalue\n',fontsize = fontsize, c = 'b')
@@ -400,7 +403,7 @@ def plot_time_series(timesteps, values, title = None, label = None, figsize = No
     plt.grid(True);
   else:
     plt.figure(figsize = figsize)
-    plt.plot(timesteps[offset:], values[offset:], label = label)
+    plt.plot(x,y,label = label)
     if title != None:
       plt.title('\n'+title+'\n', c = 'r', fontsize = fontsize)
     plt.ylabel('\nvalue\n',fontsize = fontsize, c = 'b')
