@@ -697,3 +697,35 @@ def calculate_results_regression(y_true, y_pred):
           "mse": mse.numpy(),
           "rmse": rmse.numpy(),
           "mape": mape.numpy()}
+
+
+import numpy as np
+
+def windowed_times_series(values, window, horizon = 1):
+  
+  """
+  Objetive
+  --------
+  Return tuple of windewed data features and labels for the given time series values given the window size and tha horizon
+
+  Parameters
+  --------
+  window : window size
+  horizon : number of labels to be predicted
+  
+  """
+  features, labels = [],[]
+  for start in range(0,len(values)):  
+    window_frame = values[start:(start + window + horizon)]
+    if len(window_frame) == (window + horizon):
+      feature = window_frame[:-(horizon)]
+      label = window_frame[-(horizon):]
+      features.append(list(feature))
+      labels.append(list(label))
+    else:
+      break
+  features, labels = np.array(features), np.squeeze(np.array(labels))
+  print(f'window size : {window} & horizon_size : {horizon}')
+  print(f'number of windows returned : {len(features)}\n')
+  
+  return features,labels
