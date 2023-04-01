@@ -390,7 +390,7 @@ def plot_time_series(timesteps, values, title = None, label = None, figsize = No
   
   """
   if figsize == None:
-    plt.plot(timesteps, values+offset, label = label)
+    plt.plot(timesteps[offset:], values[offset:], label = label)
     if title != None:
       plt.title('\n'+title+'\n', c = 'r', fontsize = fontsize)
     plt.ylabel('\nvalue\n',fontsize = fontsize, c = 'b')
@@ -400,7 +400,7 @@ def plot_time_series(timesteps, values, title = None, label = None, figsize = No
     plt.grid(True);
   else:
     plt.figure(figsize = figsize)
-    plt.plot(timesteps, values+offset, label = label)
+    plt.plot(timesteps[offset:], values[offset:], label = label)
     if title != None:
       plt.title('\n'+title+'\n', c = 'r', fontsize = fontsize)
     plt.ylabel('\nvalue\n',fontsize = fontsize, c = 'b')
