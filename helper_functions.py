@@ -664,3 +664,36 @@ def text_standardization(text, to_lower=True, rm_punctuations=True, rm_html=True
   x = x.numpy().decode('utf-8')  # convert into a numpy value and decode the text into utf-8 format
     
   return x
+
+
+import tensorflow as tf
+
+def calculate_results_regression(y_true, y_pred):
+
+  """
+  Objective
+  ---------
+  Return the evaluation metrics for regression problem based the prediction
+
+  Parameters
+  ---------
+  y_true : actual values upon which the prediction is made
+  y_pred : predicted value from the model
+
+  """
+
+  # Make sure float32 (for metric calculations)
+  
+  y_true = tf.cast(y_true, dtype=tf.float32)
+  y_pred = tf.cast(y_pred, dtype=tf.float32)
+
+  # Calculate various metrics
+  mae = tf.keras.metrics.mean_absolute_error(y_true, y_pred)
+  mse = tf.keras.metrics.mean_squared_error(y_true, y_pred) # puts and emphasis on outliers (all errors get squared)
+  rmse = tf.sqrt(mse)
+  mape = tf.keras.metrics.mean_absolute_percentage_error(y_true, y_pred)
+  
+  return {"mae": mae.numpy(),
+          "mse": mse.numpy(),
+          "rmse": rmse.numpy(),
+          "mape": mape.numpy()}
