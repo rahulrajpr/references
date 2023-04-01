@@ -693,6 +693,12 @@ def calculate_results_regression(y_true, y_pred):
   rmse = tf.sqrt(mse)
   mape = tf.keras.metrics.mean_absolute_percentage_error(y_true, y_pred)
   
+  if mae.ndim > 0: # if mae isn't already a scalar, reduce it to one by aggregating tensors to mean
+    mae = tf.reduce_mean(mae)
+    mse = tf.reduce_mean(mse)
+    rmse = tf.reduce_mean(rmse)
+    mape = tf.reduce_mean(mape)
+  
   return {"mae": mae.numpy(),
           "mse": mse.numpy(),
           "rmse": rmse.numpy(),
