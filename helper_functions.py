@@ -762,3 +762,41 @@ def windowed_times_series(values, window, horizon = 1):
   print(f'number of windows returned : {len(features)}\n')
   
   return features,labels
+
+## function for converting the prefetch dataset to numpy array
+
+def prefetch_dataset_to_array(dataset):
+
+  """
+  Returns tuples of 2 numpy arrays, -->(data, labels)
+
+  Objective:
+  ---------
+
+  To convert the prefetch dataset (batched/plain) to numpy array to have deeper understanding and preprocessing
+
+  Parameters
+  ----------
+  dataset : prefetch (batched or plain) dataset needs to be converted, 
+
+  """
+  
+  data, labels = [],[]
+  try:
+    # check for batches
+    dataset = dataset.unbatch()
+    print('Unbatching the dataset')
+
+  except:
+    None
+
+  for batch in dataset:
+      x, y = batch
+      data.append(x.numpy())
+      labels.append(y.numpy())
+
+  data = np.array(data)
+  labels = np.array(labels)
+  print('Numpy arrays returned as --> (data, labels)')
+  
+  return data,labels
