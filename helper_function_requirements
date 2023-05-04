@@ -1,3 +1,0 @@
-pip install -U scikit-learn
-pip install matplotlib
-pip install split-folders
