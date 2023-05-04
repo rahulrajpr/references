@@ -293,29 +293,56 @@ def walk_through_dir(dir_path):
   for dirpath, dirnames, filenames in os.walk(dir_path):
     print(f"There are {len(dirnames)} directories and {len(filenames)} images in '{dirpath}'.")
     
-# Function to evaluate: accuracy, precision, recall, f1-score
+# Function to Retun the performance metrics of classification/ regression models
+
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 
-def calculate_results(y_true, y_pred):
+def calculate_results(y_true, y_pred,is_regression = False):
+  
   """
-  Calculates model accuracy, precision, recall and f1 score of a binary classification model.
+  Returns the dictionary performance metrics of classications and regression models
 
   Args:
       y_true: true labels in the form of a 1D array
       y_pred: predicted labels in the form of a 1D array
+      is_regression : default False returns classication metrics, if True, returns regression metrics
 
   Returns a dictionary of accuracy, precision, recall, f1-score.
+  
   """
-  # Calculate model accuracy
-  model_accuracy = accuracy_score(y_true, y_pred)
-  # Calculate model precision, recall and f1 score using "weighted average
-  model_precision, model_recall, model_f1, _ = precision_recall_fscore_support(y_true, y_pred, average="weighted")
-  model_results = {"accuracy": model_accuracy,
-                  "precision": model_precision,
-                  "recall": model_recall,
-                  "f1": model_f1}
-  return model_results
+  if not(is_regression):
+    # Classification metrics block
+    model_accuracy = accuracy_score(y_true, y_pred)
+    # Calculate model precision, recall and f1 score using "weighted average
+    model_precision, model_recall, model_f1, _ = precision_recall_fscore_support(y_true, y_pred, average="weighted")
+    model_results = {"accuracy": model_accuracy,
+                    "precision": model_precision,
+                    "recall": model_recall,
+                    "f1": model_f1}
+  else:
+    # Regression metrics block
+    y_true = tf.cast(y_true, dtype=tf.float32)
+    y_pred = tf.cast(y_pred, dtype=tf.float32)
 
+    # Calculate various metrics
+    mae = tf.keras.metrics.mean_absolute_error(y_true, y_pred)
+    mse = tf.keras.metrics.mean_squared_error(y_true, y_pred) # puts and emphasis on outliers (all errors get squared)
+    rmse = tf.sqrt(mse)
+    mape = tf.keras.metrics.mean_absolute_percentage_error(y_true, y_pred)
+
+    if mae.ndim > 0: # if mae isn't already a scalar, reduce it to one by aggregating tensors to mean
+      mae = tf.reduce_mean(mae)
+      mse = tf.reduce_mean(mse)
+      rmse = tf.reduce_mean(rmse)
+      mape = tf.reduce_mean(mape)
+
+    model_results =  {"mae": mae.numpy(),
+            "mse": mse.numpy(),
+            "rmse": rmse.numpy(),
+            "mape": mape.numpy()}
+  
+  return model_results
+  
 # function for checking the random image and the corresponding augmented one
 
 import matplotlib.pyplot as plt
