@@ -553,33 +553,6 @@ def clear_memory_tensorflow_session():
   gc.collect()
   
   
-import splitfolders
-def split_directories(original_dir,output_dir,ratio = (.8,.2)):
-
-    """
-    Objective
-    ---------
-    Splits a file directory into train, val, test sub directories
-    You can split into train-val-test or tran-val as well based on the number of ratios provided
-    if it is 3 ratios -- > train, val, test
-    if it is 2 ratio ---> train & val only
-    random state is 42.
-
-    Parameters
-    ----------
-    orinal_dir : path to the original directory where the files are present
-    output_dir : name of the new director to be created, inside of which the split directories will be created
-    ratio : the split ratios to each directories. default - > (.8,.2). this tuple can have 2 or 3 elements bases on the context of the split
-
-    """
-    splitfolders.ratio(original_dir,
-                     output = output_dir,
-                     seed = 42,
-                     ratio = ratio,
-                     group_prefix=None,
-                     move=False
-                   )
-    
 import shutil
 import os
 
