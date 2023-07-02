@@ -239,7 +239,7 @@ import zipfile
 import tarfile
 import os
 
-def unzip_untar_data2(filename, dest_folder=None, remove_source_file_after_extraction=True):
+def unzip_untar_data(filename, dest_folder=None, remove_source_file_after_extraction=True):
     """
     Unzips (.zip file) or untar (.tgz or .tar.gz) file into the specified destination folder.
     Args:
