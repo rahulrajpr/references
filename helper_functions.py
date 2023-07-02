@@ -237,41 +237,42 @@ def compare_historys(original_history, new_history, initial_epochs=5):
 
 import zipfile
 import tarfile
+import os
 
-def unzip_untar_data(filename):
-  """
-  Unzips(.zip file) or untar(.tgz) file into the current working directory.
-  Args:
-    filename (str): a filepath to a target zip folder to be unzipped or untared
-  """
-  if filename.endswith('.zip'):
-    print('File extension : .zip')
-    print('File extracting.......')
-    zip_ref = zipfile.ZipFile(filename, "r")
-    zip_ref.extractall()
-    zip_ref.close()
-    print('Completed successfully')
-    
-  elif filename.endswith('.tgz'):
-    print('File extension : .tgz')
-    print('File extracting.......')
-    with tarfile.open(filename, "r:gz") as tar:
-        tar.extractall()
-    del tar
-    print('Completed successfully')
-    
-  elif filename.endswith('.tar.gz'):
-    print('File extension : .tar.gz')
-    print('File extracting.......')
-    with tarfile.open(filename, "r:gz") as tar:
-        tar.extractall()
-    del tar
-    print('Completed successfully')
+def unzip_untar_data2(filename, dest_folder=None, remove_source_file_after_extraction=True):
+    """
+    Unzips (.zip file) or untar (.tgz or .tar.gz) file into the specified destination folder.
+    Args:
+        filename (str): a filepath to the target zip or tar folder to be extracted.
+        dest_folder (str): destination folder path where the contents will be extracted. Default is None.
+        remove_source_file_after_extraction (bool): whether to remove the source file after extraction. Default is True.
+    """
+    if dest_folder is None:
+      dest_folder = os.path.splitext(filename)[0]  # Use the name of the source file without extension as the destination folder
 
-  else:
-    print('Error : unpected file extension ---> extension not listed in [.zip,.tgz,.tar.gs]')
-    print('\nHint : task cannot be completed, check the file and file extension')
-                       
+    if filename.endswith('.zip'):
+      print('File extension: .zip')
+      print('File extracting.......')
+      with zipfile.ZipFile(filename, "r") as zip_ref:
+        zip_ref.extractall(dest_folder)
+        print('\nExtraction Completed successfully')
+
+    elif filename.endswith('.tgz') or filename.endswith('.tar.gz'):
+      print('File extension: .tgz or .tar.gz')
+      print('File extracting.......')
+      with tarfile.open(filename, "r:gz") as tar:
+        tar.extractall(dest_folder)
+        print('\nExtraction Completed successfully')
+
+    else:
+      print('Error: Unexpected file extension ---> extension not listed in [.zip, .tgz, .tar.gz]')
+      print('Hint: Task cannot be completed, check the file and file extension')
+
+    if remove_source_file_after_extraction:
+      os.remove(filename)
+      print('Deleted source file')
+    else:
+      print('Source file reatined')
 
 # Walk through an image classification directory and find out how many files (images)
 # are in each subdirectory.
